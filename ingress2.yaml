@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-marvel-heroes
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: node1
+    http:
+      paths:
+        - backend:
+            serviceName: marvel-service
+            servicePort: 80
+  - host: node2
+    http:
+      paths:
+        - backend:
+            serviceName: thor-service
+            servicePort: 80
+

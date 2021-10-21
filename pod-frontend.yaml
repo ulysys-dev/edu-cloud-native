@@ -1,0 +1,106 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2021-10-19T14:20:39Z"
+  generateName: frontend-
+  labels:
+    tier: frontend
+  name: frontend-6dkm8
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: frontend
+    uid: 6c541ff8-7534-4a98-ad4f-3605b75ecbb1
+  resourceVersion: "156024"
+  uid: a779737e-d396-469d-a39c-690b45e52602
+spec:
+  containers:
+  - image: gcr.io/google_samples/gb-frontend:v3
+    imagePullPolicy: IfNotPresent
+    name: php-redis
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-vm75q
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: node2
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-vm75q
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2021-10-19T14:20:39Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2021-10-19T14:21:15Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2021-10-19T14:21:15Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2021-10-19T14:20:39Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://adbbaa03b654610ec18c376b4c9a35940ce589378fc1a9760cecb5361362b2cf
+    image: gcr.io/google_samples/gb-frontend:v3
+    imageID: docker-pullable://gcr.io/google_samples/gb-frontend@sha256:50b22839aaf6a18586d6751e8963cf684c27b9873ca926df22cdf88ed4452615
+    lastState: {}
+    name: php-redis
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2021-10-19T14:21:15Z"
+  hostIP: 10.0.2.11
+  phase: Running
+  podIP: 10.44.0.2
+  podIPs:
+  - ip: 10.44.0.2
+  qosClass: BestEffort
+  startTime: "2021-10-19T14:20:39Z"
