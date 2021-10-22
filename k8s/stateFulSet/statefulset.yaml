@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: appjs
+spec:
+  selector:
+    matchLabels:
+      app: store
+  serviceName: appjs
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: store
+    spec:
+      containers:
+      - name: appjs
+        image: smlinux/app-store
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: data
+          mountPath: /var/data
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      storageClassName: ""
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Mi
