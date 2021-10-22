@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: web-server
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14
+        volumeMounts:
+          - mountPath: /usr/share/nginx/html
+            name: html
+            readOnly: true
+        ports:
+        - containerPort: 80
+
+
+      volumes:
+        - name: html
+          nfs:
+            server: node1
+            path: /var/nfs/data1

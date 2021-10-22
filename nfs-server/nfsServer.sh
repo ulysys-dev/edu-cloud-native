@@ -3,8 +3,7 @@
 # Ref : https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-16-04
 
 
-sudo apt-get update
-sudo apt-get install -y nfs-kernel-server
+sudo apt-get update && apt-get install -y nfs-kernel-server
 
 sudo mkdir -p /var/nfs/data{1..9}
 sudo chown nobody:nogroup -R /var/nfs/
