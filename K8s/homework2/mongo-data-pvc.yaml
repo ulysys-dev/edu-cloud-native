@@ -1,0 +1,15 @@
+
+# mongo-data-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-pvc
+  labels:
+    app: mongodb
+spec:
+  resources:
+    requests:
+      storage: 500Mi
+  volumeMode: Filesystem
+  accessModes:        # MongoDB만이 fileSyste을 사용할 것이기 때문에 RWO를 설정 합니다.
+    - ReadWriteOnce
